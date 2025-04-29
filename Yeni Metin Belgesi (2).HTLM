@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ýyi Hisset</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            color: #333;
+        }
+        .container {
+            text-align: center;
+            border: 2px solid #4CAF50;
+            padding: 30px;
+            border-radius: 10px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .message {
+            font-size: 24px;
+            font-weight: bold;
+            color: #4CAF50;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="message" class="message">
+            Burada harika bir mesaj olacak!
+        </div>
+        <button onclick="generateMessage()">Yeni Mesaj</button>
+    </div>
+
+    <script>
+        let messages = [
+            "Bugün harika bir gün, senin için güzel þeyler olacak!",
+            "Sen çok deðerli bir insansýn, her þeyin en iyisi seni bekliyor!",
+            "Hayat güzel, sen de o güzelliði hak ediyorsun!",
+            "Her þey yolunda, içindeki gücü hisset!",
+            "Baþarý seninle, adýmlarýný güvenle at!",
+            "Kendine güven, senin içinde büyük bir güç var!"
+        ];
+
+        let usedMessages = []; // Kullanýlmýþ mesajlar dizisi
+
+        // Mesajlar bittiðinde yeni mesaj oluþtur
+        function generateNewMessage() {
+            // Yeni bir rastgele cümle üretme
+            const randomPart = ["seninle", "her þey yolunda", "içindeki güç", "güvenle", "hayat güzel", "baþarý seni bekliyor"];
+            const randomStart = ["Bugün", "Sen", "Hayat", "Ýçindeki güç", "Baþarý"];
+            const randomEnd = ["olacak!", "güzel þeyler seni bekliyor!", "baþarý seninle!", "yeni bir baþlangýç seni bekliyor!"];
+
+            const randomStartIndex = Math.floor(Math.random() * randomStart.length);
+            const randomPartIndex = Math.floor(Math.random() * randomPart.length);
+            const randomEndIndex = Math.floor(Math.random() * randomEnd.length);
+
+            return `${randomStart[randomStartIndex]} ${randomPart[randomPartIndex]} ${randomEnd[randomEndIndex]}`;
+        }
+
+        // Yeni mesaj üret
+        function generateMessage() {
+            if (usedMessages.length === messages.length) {
+                // Eðer tüm mesajlar kullanýldýysa, yeni mesajlarý üret
+                alert("Tüm mesajlar kullanýldý. Yeni mesajlar üretiliyor!");
+                messages = [];
+                for (let i = 0; i < 5; i++) {
+                    messages.push(generateNewMessage());
+                }
+                usedMessages = [];
+            }
+
+            let randomIndex;
+            do {
+                randomIndex = Math.floor(Math.random() * messages.length);
+            } while (usedMessages.includes(randomIndex));
+
+            // Kullanýlmamýþ bir mesaj seç
+            document.getElementById("message").innerText = messages[randomIndex];
+
+            // Seçilen mesajý usedMessages dizisine ekle
+            usedMessages.push(randomIndex);
+        }
+
+        // Sayfa yüklendiðinde bir mesaj seçilsin
+        window.onload = generateMessage;
+    </script>
+</body>
+</html>
